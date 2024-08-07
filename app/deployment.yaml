@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app: ollama
     app.kubernetes.io/instance: deployment-application
   name: ollama
   namespace: app
