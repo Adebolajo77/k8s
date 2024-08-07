@@ -13,3 +13,22 @@ spec:
   - port: 80
     targetPort: 11434  # Should match the containerPort in the Deployment
     protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: deployment-application
+  name: transcription-service
+  namespace: app
+spec:
+  selector:
+    app: transcription
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 50051
+  type: LoadBalancer
