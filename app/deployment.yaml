@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: transcription
-    app.kubernetes.io/instance: nginx-argocd-application
+    app.kubernetes.io/instance: rollout-application
   name: transcription-deployment
   namespace: app
 spec:
