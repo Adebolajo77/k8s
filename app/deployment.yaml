@@ -37,3 +37,41 @@ spec:
       - key: nvidia.com/gpu
         operator: Exists
         effect: NoSchedule
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: transcription
+    app.kubernetes.io/instance: deployment-application
+  name: transcription-deployment
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transcription
+  template:
+    metadata:
+      labels:
+        app: transcription
+    spec:
+      containers:
+      - name: transcription
+        image: 10.10.45.1:5000/my-subtitle-app:latest
+        ports:
+        - containerPort: 50051
+        volumeMounts:
+        - mountPath: /workspace
+          name: file-path
+        env:
+        - name: CUDA_VISIBLE_DEVICES
+          value: "0,1"  # Specify GPU 1 here
+      volumes:
+      - name: file-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/transcription
+      restartPolicy: Always
+
+---
