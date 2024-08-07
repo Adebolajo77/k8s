@@ -4,7 +4,7 @@ metadata:
   labels:
     app: ollama
     app.kubernetes.io/instance: deployment-application
-  name: ollama
+  name: ollama-deployment
   namespace: app
 spec:
   strategy:
