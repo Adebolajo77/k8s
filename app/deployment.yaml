@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-      app.kubernetes.io/instance: nginx-argocd-application
+      app.kubernetes.io/instance: deployment-application
   name: ollama
   namespace: app
 spec:
