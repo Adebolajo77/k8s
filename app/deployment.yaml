@@ -43,7 +43,7 @@ metadata:
   name: ollama
   namespace: app
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: Recreate
   selector:
@@ -75,4 +75,33 @@ spec:
         operator: Exists
         effect: NoSchedule
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-ss
+    app.kubernetes.io/instance: rollout-application
+  name: api-ss
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-ss
+  template:
+    metadata:
+      labels:
+        app: api-ss
+    spec:
+      containers:
+      - name: api-ss
+        image: 10.10.45.1:5000/api-ss:1.0
+        ports:
+        - containerPort: 8900
+        env:
+        - name: PORT
+          value: "8900"
+        - name: CUDA_VISIBLE_DEVICES
+          value: "1"  # Specify GPU 1 here
 
