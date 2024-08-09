@@ -140,3 +140,87 @@ spec:
         hostPath:
           path: /mnt/SDD1/ai-apis/api_utils
       restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: srt-translation
+    app.kubernetes.io/instance: rollout-application
+  name: srt-translation-deployment
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srt-translation
+  template:
+    metadata:
+      labels:
+        app: srt-translation
+    spec:
+      containers:
+      - name: srt-translation
+        image: 10.10.45.1:5000/ai-apis_srt_translation:latest  # Use the correct image path here
+        ports:
+        - containerPort: 1402
+        volumeMounts:
+        - mountPath: /Translation/app/data/
+          name: db-path
+        - mountPath: /Translation/api_utils
+          name: api-utils-path
+        env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "1"  # Specify GPU 1 here
+      volumes:
+      - name: db-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/db/
+      - name: api-utils-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/api_utils
+      restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: srt-to-audio
+    app.kubernetes.io/instance: rollout-application
+  name: srt-to-audio-deployment
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: srt-to-audio
+  template:
+    metadata:
+      labels:
+        app: srt-to-audio
+    spec:
+      containers:
+      - name: srt-to-audio
+        image: 10.10.45.1:5000/ai-apis_srt_to_audio:latest  # Use the correct image path here
+        ports:
+        - containerPort: 1403
+        volumeMounts:
+        - mountPath: /srt_to_audio/db
+          name: db-path
+        - mountPath: /srt_to_audio/api_utils
+          name: api-utils-path
+        env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "1"  # Specify GPU 1 here
+      volumes:
+      - name: db-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/srt_to_audio/db
+      - name: api-utils-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/api_utils
+      restartPolicy: Always

@@ -70,3 +70,42 @@ spec:
     targetPort: 1401
   type: LoadBalancer
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: srt-translation
+    app.kubernetes.io/instance: rollout-application
+  name: srt-translation-service
+  namespace: app
+spec:
+  selector:
+    app: srt-translation
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 1402
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: srt-to-audio
+    app.kubernetes.io/instance: rollout-application
+  name: srt-to-audio-service
+  namespace: app
+spec:
+  selector:
+    app: srt-to-audio
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 1403
+  type: LoadBalancer
