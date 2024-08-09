@@ -105,3 +105,38 @@ spec:
         - name: CUDA_VISIBLE_DEVICES
           value: "1"  # Specify GPU 1 here
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: multilang-translation
+    app.kubernetes.io/instance: rollout-application
+  name: multilang-translation-deployment
+  namespace: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multilang-translation
+  template:
+    metadata:
+      labels:
+        app: multilang-translation
+    spec:
+      containers:
+      - name: multilang-translation
+        image: 10.10.45.1:5000/ai-apis_multilang_translation:latest  # Use the correct image path here
+        ports:
+        - containerPort: 1401
+        volumeMounts:
+        - mountPath: /Translation/api_utils
+          name: api-utils-path
+        env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "1"  # Specify GPU 1 here
+      volumes:
+      - name: api-utils-path
+        hostPath:
+          path: /mnt/SDD1/ai-apis/api_utils
+      restartPolicy: Always

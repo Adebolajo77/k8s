@@ -50,3 +50,23 @@ spec:
     targetPort: 8900
     protocol: TCP
   type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: multilang-translation
+    app.kubernetes.io/instance: rollout-application
+  name: multilang-translation-service
+  namespace: app
+spec:
+  selector:
+    app: multilang-translation
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 1401
+  type: LoadBalancer
+
