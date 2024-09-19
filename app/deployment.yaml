@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: transcription
-        image: 10.10.45.1:5000/my-subtitle-app:latest
+        image: 10.10.40.2:5000/my-subtitle-app:latest
         ports:
         - containerPort: 50051
         volumeMounts:
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
       - name: ollama
-        image: 10.10.45.1:5000/ollama:1.0 
+        image: 10.10.40.2:5000/ollama:1.0 
         env:
         - name: CUDA_VISIBLE_DEVICES
           value: "0"  # Specify GPU 1 here
@@ -96,7 +96,7 @@ spec:
     spec:
       containers:
       - name: api-ss
-        image: 10.10.45.1:5000/api-ss:1.0
+        image: 10.10.40.2:5000/api-ss:1.0
         ports:
         - containerPort: 8900
         env:
@@ -126,7 +126,7 @@ spec:
     spec:
       containers:
       - name: multilang-translation
-        image: 10.10.45.1:5000/ai-apis_multilang_translation:latest  # Use the correct image path here
+        image: 10.10.40.2:5000/ai-apis_multilang_translation:latest  # Use the correct image path here
         ports:
         - containerPort: 1401
         volumeMounts:
@@ -163,7 +163,7 @@ spec:
     spec:
       containers:
       - name: srt-translation
-        image: 10.10.45.1:5000/ai-apis_srt_translation:latest  # Use the correct image path here
+        image: 10.10.40.2:5000/ai-apis_srt_translation:latest  # Use the correct image path here
         ports:
         - containerPort: 1402
         volumeMounts:
@@ -205,7 +205,7 @@ spec:
     spec:
       containers:
       - name: srt-to-audio
-        image: 10.10.45.1:5000/ai-apis_srt_to_audio:latest  # Use the correct image path here
+        image: 10.10.40.2:5000/ai-apis_srt_to_audio:latest  # Use the correct image path here
         ports:
         - containerPort: 1403
         volumeMounts:
